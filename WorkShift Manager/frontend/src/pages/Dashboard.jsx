@@ -18,9 +18,9 @@ function Dashboard() {
                 <div className="col-md-4">
                     <div className="card shadow p-3">
                         <h5>Dipendenti</h5>
-                        <h2>124</h2>
+                        <h2>10</h2>
                         <span className="text-success">
-                            +8 questo mese
+                            aggiunti recentemente 2
                         </span>
                     </div>
                 </div>
@@ -30,7 +30,7 @@ function Dashboard() {
                 <div className="col-md-4">
                     <div className="card shadow p-3">
                         <h5>Ore lavorate oggi</h5>
-                        <h2>856 h</h2>
+                        <h2>500 h</h2>
                         <span className="text-primary">
                             Aggiornamento automatico
                         </span>
@@ -67,27 +67,41 @@ function Dashboard() {
                             <th>Turno</th>
                             <th>Orario</th>
                             <th>Stato</th>
+                            <th>tot ore</th>
+                            <th>tot pagamento</th>
+                            <th>pagato</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
                         <tr>
-                            <td>Mario Rossi</td>
+                            <td>Mario</td>
                             <td>Mattina</td>
                             <td>06:00 - 14:00</td>
                             <td className="text-success">
                                 Attivo
                             </td>
+                            <td>8</td>
+                            <td>€64.00</td>
+                            <td>
+                                <input type="checkbox" />
+                            </td>
                         </tr>
 
 
                         <tr>
-                            <td>Luca Bianchi</td>
+                            <td>juan melgarejo</td>
                             <td>Pomeriggio</td>
-                            <td>14:00 - 22:00</td>
+                            <td>12:00 - 22:00</td>
+                            
                             <td className="text-warning">
                                 In attesa
+                            </td>
+                            <td>10</td>
+                            <td>€70.00</td>
+                            <td>
+                                <input type="checkbox" />
                             </td>
                         </tr>
 
