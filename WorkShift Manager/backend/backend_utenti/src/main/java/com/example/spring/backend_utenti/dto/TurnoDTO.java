@@ -22,7 +22,22 @@ public class TurnoDTO {
         return fineOrario;
     }
     public String getNote() {
-        return note;}
-        
+        return note;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public void setUtenteId(Long utenteId) {
+        this.utenteId = utenteId;
+    }
+    public void setInizioOrario(LocalDateTime inizioOrario) {
+        this.inizioOrario = inizioOrario;
+    }
+    public void setFineOrario(LocalDateTime fineOrario) {
+        this.fineOrario = fineOrario;
+    }
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

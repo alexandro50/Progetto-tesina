@@ -19,7 +19,7 @@ public class TurnoController {
     private TurnoService turnoService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('RUOLO_ADMIN')")
     public ResponseEntity<?> creaTurno(@RequestBody TurnoDTO turnoDTO) {
         try {
             Turno nuovoTurno = turnoService.creaTurno(turnoDTO);
