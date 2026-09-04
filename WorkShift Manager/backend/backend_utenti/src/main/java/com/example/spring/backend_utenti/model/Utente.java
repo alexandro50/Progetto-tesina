@@ -33,6 +33,8 @@ public class Utente {
 
     private LocalDate dataAssunzione;
 
+    private Double tariffaOraria;
+
     public Utente() {
     }
 
@@ -99,5 +101,13 @@ public class Utente {
 
     public void setDataAssunzione(LocalDate dataAssunzione) {
         this.dataAssunzione = dataAssunzione;
+    }
+
+    public Double getTariffaOraria() {
+        return tariffaOraria;
+    }
+
+    public void setTariffaOraria(Double tariffaOraria) {
+        this.tariffaOraria = tariffaOraria;
     }
 }

@@ -19,4 +19,8 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
             @Param("utenteId") Long utenteId,
             @Param("inizioOrario") LocalDateTime inizioOrario,
             @Param("fineOrario") LocalDateTime fineOrario);
+
+    @Query("SELECT t FROM Turno t WHERE t.utente.id = :utenteId AND t.note = :nota " +
+           "ORDER BY t.inizioOrario DESC")
+    List<Turno> findByUtenteIdAndNota(@Param("utenteId") Long utenteId, @Param("nota") String nota);
 }
