@@ -1,15 +1,13 @@
-version: '3.8'
-
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgres-workshift
     environment:
       POSTGRES_DB: workshift_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pippo123
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

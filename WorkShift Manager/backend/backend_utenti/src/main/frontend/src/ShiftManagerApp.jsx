@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useAuth } from './context/AuthContext';
 
 export default function ShiftManagerApp() {
+  const { user, logout, isAdmin } = useAuth();
   const [activeTab, setActiveTab] = useState('timbratrice');
   const [isClockedIn, setIsClockedIn] = useState(false);
   const [clockInTime, setClockInTime] = useState(null);
   
   // Dati simulati per l'integrazione con Spring Boot
-  const [turni, setTurni] = useState([
+  const [turni] = useState([
     { id: 1, data: '2026-09-02', inizio: '09:00', fine: '17:00', ruolo: 'Backend Dev' },
     { id: 2, data: '2026-09-03', inizio: '10:00', fine: '18:00', ruolo: 'Backend Dev' }
   ]);
 
-  const [reportOre, setReportOre] = useState({
+  const [reportOre] = useState({
     oreTotali: 160,
     oreLavorate: 124,
     straordinari: 8,
@@ -35,7 +37,13 @@ export default function ShiftManagerApp() {
     <div style={styles.container}>
       {/* Sidebar Navigazione */}
       <aside style={styles.sidebar}>
-        <h2 style={styles.logo}>TurniStartup ⏱️</h2>
+        <h2 style={styles.logo}>WorkShift Manager</h2>
+        {user && (
+          <div style={styles.userInfo}>
+            <p style={styles.userName}>{user.nome} {user.cognome}</p>
+            <p style={styles.userRole}>{isAdmin ? 'Amministratore' : 'Dipendente'}</p>
+          </div>
+        )}
         <nav style={styles.nav}>
           <button 
             style={activeTab === 'timbratrice' ? styles.activeNavBtn : styles.navBtn} 
@@ -53,6 +61,7 @@ export default function ShiftManagerApp() {
             📊 Conteggio Ore
           </button>
         </nav>
+        <button onClick={logout} style={styles.logoutBtn}>Esci</button>
       </aside>
 
       {/* Contenuto Principale */}
@@ -124,7 +133,11 @@ const styles = {
   container: { display: 'flex', minHeight: '100vh', fontFamily: 'Segoe UI, sans-serif', backgroundColor: '#f4f6f8' },
   sidebar: { width: '240px', backgroundColor: '#1e293b', color: '#fff', padding: '20px' },
   logo: { fontSize: '1.2rem', marginBottom: '30px' },
-  nav: { display: 'flex', flexDirection: 'column', gap: '10px' },
+  nav: { display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 },
+  userInfo: { marginBottom: '20px', padding: '12px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' },
+  userName: { margin: 0, fontWeight: '600', fontSize: '0.95rem' },
+  userRole: { margin: '4px 0 0 0', fontSize: '0.8rem', color: '#94a3b8' },
+  logoutBtn: { padding: '12px', border: 'none', backgroundColor: 'rgba(255,255,255,0.1)', color: '#f87171', textAlign: 'left', cursor: 'pointer', borderRadius: '6px', fontSize: '0.9rem', marginTop: 'auto' },
   navBtn: { padding: '12px', border: 'none', background: 'transparent', color: '#94a3b8', textAlign: 'left', cursor: 'pointer', borderRadius: '6px' },
   activeNavBtn: { padding: '12px', border: 'none', backgroundColor: '#2563eb', color: '#fff', textAlign: 'left', cursor: 'pointer', borderRadius: '6px' },
   content: { flex: 1, padding: '40px' },
