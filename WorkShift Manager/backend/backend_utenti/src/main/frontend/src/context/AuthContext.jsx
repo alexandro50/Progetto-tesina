@@ -1,7 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { useState } from 'react';
 import api from '../services/api';
-
-const AuthContext = createContext(null);
+import { AuthContext } from './useAuth';
 
 function getInitialState() {
   const storedToken = localStorage.getItem('token');
@@ -41,16 +40,8 @@ export function AuthProvider({ children }) {
   const isAdmin = user?.ruolo === 'RUOLO_ADMIN';
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isAdmin, loading: false }}>
+    <AuthContext.Provider value={{ user, token, login, logout, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth deve essere usato dentro un AuthProvider');
-  }
-  return context;
 }
