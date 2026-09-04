@@ -72,33 +72,6 @@ export default function ShiftManagerApp() {
     };
   }, [activeTab, user?.id]);
 
-  useEffect(() => {
-    if (activeTab === 'timbratrice') {
-      caricaStatotimbratura();
-    }
-  }, [activeTab]);
-
-  const caricaStatotimbratura = async () => {
-    setTimbrLoading(true);
-    setTimbrMsg('');
-    try {
-      const res = await api.get('/api/turni/timbratura/stato');
-      if (res.data) {
-        setIsClockedIn(true);
-        setClockInTime(res.data.inizioOrario);
-        setClockOutTime(null);
-      } else {
-        setIsClockedIn(false);
-        setClockInTime(null);
-        setClockOutTime(null);
-      }
-    } catch {
-      setTimbrMsg('Impossibile verificare lo stato della timbratura.');
-    } finally {
-      setTimbrLoading(false);
-    }
-  };
-
   const timbraInizio = async () => {
     setTimbrLoading(true);
     setTimbrMsg('');
@@ -133,6 +106,35 @@ export default function ShiftManagerApp() {
       setTimbrLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (activeTab !== 'timbratrice') return;
+    let canceller = false;
+    const carica = async () => {
+      setTimbrLoading(true);
+      setTimbrMsg('');
+      try {
+        const res = await api.get('/api/turni/timbratura/stato');
+        if (!canceller) {
+          if (res.data) {
+            setIsClockedIn(true);
+            setClockInTime(res.data.inizioOrario);
+            setClockOutTime(null);
+          } else {
+            setIsClockedIn(false);
+            setClockInTime(null);
+            setClockOutTime(null);
+          }
+        }
+      } catch {
+        if (!canceller) setTimbrMsg('Impossibile verificare lo stato della timbratura.');
+      } finally {
+        if (!canceller) setTimbrLoading(false);
+      }
+    };
+    carica();
+    return () => { canceller = true; };
+  }, [activeTab]);
 
   const aggiungiTurno = async (dati) => {
     setFormMsg('');
